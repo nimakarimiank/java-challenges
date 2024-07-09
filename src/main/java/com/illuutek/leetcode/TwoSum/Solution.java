@@ -1,26 +1,30 @@
 package com.illuutek.leetcode.TwoSum;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Arrays;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Solution {
     public int[] twoSum(int[] nums, int target) {
-//        int[] sortedNums = Arrays.stream(nums).sorted().toArray();
-        int cuttingIndex = removeLargerThanTarget(nums, target);
-        int[] newNum = Arrays.copyOf(nums, cuttingIndex);
-        System.out.println(Arrays.toString(newNum));
         int sum = 0;
+        int[] newNum = removeLargerThanTarget(nums, target);
         int[] indexes = new int[newNum.length];
+        Arrays.fill(indexes, -1);
         for (int i = 0; i < newNum.length; i++) {
             sum += newNum[i];
-            indexes[i] = i;
-            if (sum > target) {
-                sum = 0;
-                indexes[i] = -1;
+            var remainder = target - sum;
+            int index;
+            if (remainder == newNum[i]){
+                index = Arrays.binarySearch(newNum,i+1,newNum.length,remainder);
+            }
+            else {
+                index=Arrays.binarySearch(newNum,remainder);
+            }
+            if (index>=0){
+                indexes[index] = index;
+                indexes[i]= i;
                 break;
+            }
+            else {
+                sum = 0;
             }
         }
         indexes = Arrays.stream(indexes).filter(e -> e != -1).toArray();
@@ -28,16 +32,7 @@ public class Solution {
     }
 
 
-    private int removeLargerThanTarget(@NotNull int[] nums, int target) {
-        int slowPointer = 0;
-        int fastPointer = 0;
-        while (fastPointer < nums.length) {
-            if (nums[fastPointer] < target) {
-                nums[slowPointer] = nums[fastPointer];
-                slowPointer++;
-            }
-            fastPointer++;
-        }
-        return slowPointer;
+    private int[] removeLargerThanTarget(int[] nums, int target) {
+        return Arrays.stream(nums).toArray();
     }
 }
