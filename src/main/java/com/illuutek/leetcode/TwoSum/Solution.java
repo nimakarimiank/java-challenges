@@ -24,7 +24,7 @@ class Solution {
     public int[] twoSumVersion2(int[] nums, int target)
     {
         int sum=0;
-        int res[]= new int[2];
+        int[] res = new int[2];
         for (int i=0; i<nums.length-1; i++)
         {
             for (int j=i+1; j<nums.length; j++)
