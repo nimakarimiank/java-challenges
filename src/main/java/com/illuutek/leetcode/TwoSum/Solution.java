@@ -1,38 +1,44 @@
 package com.illuutek.leetcode.TwoSum;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        int sum = 0;
-        int[] newNum = removeLargerThanTarget(nums, target);
-        int[] indexes = new int[newNum.length];
-        Arrays.fill(indexes, -1);
-        for (int i = 0; i < newNum.length; i++) {
-            sum += newNum[i];
-            var remainder = target - sum;
-            int index;
-            if (remainder == newNum[i]){
-                index = Arrays.binarySearch(newNum,i+1,newNum.length,remainder);
+class Solution {
+    //Higher RunTime efficiency Lower Memory Efficiency
+    public int[] twoSumVersion1(int[] nums, int target) {
+        Map<Integer, Integer> numMap = new HashMap<Integer,Integer>();
+        int n = nums.length;
+
+        for (int i = 0; i < n; i++) {
+            int complement = target - nums[i];
+            if (numMap.containsKey(complement)) {
+                return new int[]{numMap.get(complement), i};
             }
-            else {
-                index=Arrays.binarySearch(newNum,remainder);
-            }
-            if (index>=0){
-                indexes[index] = index;
-                indexes[i]= i;
-                break;
-            }
-            else {
-                sum = 0;
+            numMap.put(nums[i], i);
+        }
+
+        return new int[]{}; // No solution found
+    }
+    // Higher Memory Efficiency Lower RunTime Efficiency
+    public int[] twoSumVersion2(int[] nums, int target)
+    {
+        int sum=0;
+        int[] res = new int[2];
+        for (int i=0; i<nums.length-1; i++)
+        {
+            for (int j=i+1; j<nums.length; j++)
+            {
+                sum=nums[i]+nums[j];
+                if (sum==target)
+                {
+                    res[0]=i;
+                    res[1]=j;
+                    break;
+                }
             }
         }
-        indexes = Arrays.stream(indexes).filter(e -> e != -1).toArray();
-        return indexes;
-    }
-
-
-    private int[] removeLargerThanTarget(int[] nums, int target) {
-        return Arrays.stream(nums).toArray();
+        System.gc();
+        return res;
     }
 }
