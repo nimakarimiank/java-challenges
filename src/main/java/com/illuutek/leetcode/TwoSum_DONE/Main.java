@@ -1,4 +1,4 @@
-package com.illuutek.leetcode.TwoSum;
+package com.illuutek.leetcode.TwoSum_DONE;
 
 import java.util.Arrays;
 

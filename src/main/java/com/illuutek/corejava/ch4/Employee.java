@@ -1,10 +1,11 @@
 package com.illuutek.corejava.ch4;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Employee {
 
-    private final String name;
+    private String name;
     private double salary;
     private LocalDate hireDay = LocalDate.now();
     public Employee(){}
@@ -33,4 +34,15 @@ public class Employee {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Employee employee)) return false;
+        return Double.compare(salary, employee.salary) == 0 && Objects.equals(name, employee.name) && Objects.equals(hireDay, employee.hireDay);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, salary, hireDay);
+    }
 }
