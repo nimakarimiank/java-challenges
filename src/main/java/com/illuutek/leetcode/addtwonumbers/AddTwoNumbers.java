@@ -1,11 +1,13 @@
 package com.illuutek.leetcode.addtwonumbers;
 
+import java.math.BigInteger;
+
 public class AddTwoNumbers {
     public static void main(String[] args) {
         ListNode node1 = new ListNode(9);
         ListNode node2 = new ListNode(1, new ListNode(9,new ListNode(9,new ListNode(9,new ListNode(9,new ListNode(9,new ListNode(9,new ListNode(9,new ListNode(9,new ListNode(9))))))))) );
-        var res = addTwoNumbers(node1, node2);
-        System.out.println(res);
+        var res = addTwoNumbersStrings(node1, node2);
+        System.out.println(res.toString());
     }
 
     private static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -36,4 +38,49 @@ public class AddTwoNumbers {
         }
         return sum;
     }
+    private static ListNode addTwoNumbersStrings(ListNode l1, ListNode l2) {
+        // Convert linked lists to string representations
+        String number1 = convertFromLinkedListToString(l1);
+        String number2 = convertFromLinkedListToString(l2);
+
+        // Add the string representations of the numbers
+        String resultString = addStrings(number1, number2);
+
+        // Convert the result string back to a ListNode
+        return convertStringToListNode(resultString);
+    }
+
+    private static String convertFromLinkedListToString(ListNode node) {
+        StringBuilder numberBuilder = new StringBuilder();
+        while (node != null) {
+            numberBuilder.insert(0, node.val); // Prepend digits to preserve order
+            node = node.next;
+        }
+        return numberBuilder.toString();
+    }
+
+    private static String addStrings(String number1, String number2) {
+        BigInteger convertedNum1 = new BigInteger(number1);
+        BigInteger convertedNum2 = new BigInteger(number2);
+        return convertedNum2.add(convertedNum1).toString();
+    }
+
+    private static ListNode convertStringToListNode(String arg) {
+        String numberString =new StringBuilder(arg).reverse().toString();
+        ListNode head = null;
+        ListNode current = null;
+        for (char digitChar : numberString.toCharArray()) {
+            int digit = Character.getNumericValue(digitChar);
+            ListNode newNode = new ListNode(digit);
+            if (head == null) {
+                head = newNode;
+                current = head;
+            } else {
+                current.next = newNode;
+                current = current.next;
+            }
+        }
+        return head;
+    }
+
 }
