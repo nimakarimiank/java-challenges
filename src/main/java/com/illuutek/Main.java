@@ -11,10 +11,8 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Solution solution = new Solution();
-        int res = 5/ 2;
-
+        var res = solution.findMedianSortedArrays(new int[]{1}, new int[]{3,4});
         System.out.println(res);
-        solution.findMedianSortedArrays(new int[]{1}, new int[]{3,4});
     }
     private static void testArbitraryParams(int... a){
         System.out.println(a.length);
