@@ -87,7 +87,7 @@ public class Solution {
         int[] summed = new int[nums1.length+nums2.length];
         System.arraycopy(nums1,0,summed,0,nums1.length);
         System.arraycopy(nums2,0,summed,nums1.length,nums2.length);
-        summed = Arrays.stream(summed).sorted().toArray();
+        Arrays.sort(summed);
         var isEven = summed.length % 2 == 0;
         return isEven? (double) (summed[(summed.length / 2)-1] + summed[(summed.length / 2)]) /2:summed[(summed.length/2)];
     }
