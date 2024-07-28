@@ -17,4 +17,13 @@ public class Manager extends Employee
     public void setBonus(double bonus) {
         this.bonus = bonus;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!super.equals(o))return false;
+        if (o instanceof Manager manager){
+            return Double.compare(this.bonus, manager.bonus) == 0;
+        }
+        else return false;
+    }
 }
