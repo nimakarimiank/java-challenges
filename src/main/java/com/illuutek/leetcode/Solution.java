@@ -3,6 +3,9 @@ package com.illuutek.leetcode;
 import java.util.*;
 
 public class Solution {
+    public Solution() {
+    }
+
     //DONE
     public static boolean isPalindrome(int x) {
         List<Integer> digitArray = new ArrayList<>();
